@@ -1,1 +1,4 @@
 ---
+profiles::firewall::ensure: stopped
+stacks::bootstrap::firewall: true
+stacks::runtime::java: true
