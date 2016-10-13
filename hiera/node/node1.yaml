@@ -1,4 +1,0 @@
----
-classes:
- - roles::kafka
-stacks::kafka::zookeeper: true

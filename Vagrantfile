@@ -3,16 +3,6 @@
 
 Vagrant.configure("2") do |config|
   ###############################################################################
-  # Global Node list                                                            #
-  ###############################################################################
-  require 'yaml'
-  if File.file?('nodes.yaml')
-    nodes = YAML.load_file('nodes.yaml')
-  elsif File.file?('nodes.yaml.dist')
-    nodes = YAML.load_file('nodes.yaml.dist')
-  end
-
-  ###############################################################################
   # Global plugin settings                                                      #
   ###############################################################################
   plugins = ["vagrant-hostmanager"]
@@ -21,11 +11,29 @@ Vagrant.configure("2") do |config|
       raise plugin << " has not been installed."
     end
   end
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.ignore_private_ip = false
+  config.hostmanager.include_offline = true
 
-  # Configure cached packages to be shared between instances of the same base box.
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :machine
   end
+  
+  if Vagrant.has_plugin?("vagrant-proxyconf")
+    config.proxy.http     = "http://packer.paas.intranet:3128/"
+    config.proxy.https    = "http://packer.paas.intranet:3128/"
+    config.proxy.no_proxy = "localhost, 127.0.0.0/8, ::1, .vagrant, .intranet, .ing.net"
+  end
+
+  if Vagrant.has_plugin?("vagrant-puppet-install")
+    config.puppet_install.puppet_version = :latest
+  end
+
+  ###############################################################################
+  # Global provisioning settings                                                #
+  ###############################################################################
+  env = 'production'
 
   ###############################################################################
   # Global VirtualBox settings                                                  #
@@ -38,16 +46,15 @@ Vagrant.configure("2") do |config|
   end
 
   ###############################################################################
-  # Global /etc/hosts file settings                                             #
-  ###############################################################################
-  config.hostmanager.enabled = true
-  config.hostmanager.manage_host = true
-  config.hostmanager.ignore_private_ip = false
-  config.hostmanager.include_offline = true
-
-  ###############################################################################
   # VM definitions                                                              #
   ###############################################################################
+  require 'yaml'
+  if File.file?('nodes.yaml')
+    nodes = YAML.load_file('nodes.yaml')
+  elsif File.file?('nodes.yaml.dist')
+    nodes = YAML.load_file('nodes.yaml.dist')
+  end
+
   config.vm.synced_folder ".", "/vagrant", disabled: true
   nodes.each do |node|
     config.vm.define node["name"] do |srv|
@@ -73,19 +80,19 @@ Vagrant.configure("2") do |config|
         end
       end
       srv.vm.network :private_network, ip: node["ip"]
+      if node["aliases"]
+        srv.hostmanager.aliases = node["aliases"]
+      end
       if node["synced_folders"]
         node["synced_folders"].each do |folder|
           srv.vm.synced_folder folder["src"], folder["dst"]
         end
       end
-      srv.vm.synced_folder 'manifests/', "/etc/puppet/environments/production/manifests"
-      srv.vm.synced_folder 'modules/', "/etc/puppet/environments/production/modules"
-      srv.vm.synced_folder 'hiera/', '/var/lib/hiera'
+      srv.vm.synced_folder "#{env}/hieradata", "/etc/puppetlabs/code/environments/#{env}/hieradata"
       srv.vm.provision :puppet do |puppet|
-        puppet.manifests_path    = "manifests"
-        puppet.manifest_file     = ""
-        puppet.module_path       = "modules"
-        puppet.hiera_config_path = "files/hiera.yaml"
+        puppet.environment = "#{env}"
+        puppet.environment_path = "."
+        puppet.hiera_config_path = "#{env}/hiera.yaml"
       end
     end
   end

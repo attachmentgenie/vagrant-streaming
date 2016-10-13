@@ -1,24 +1,30 @@
 [submodule "modules/roles"]
-	path = modules/roles
+	path = production/modules/roles
 	url = git@github.com:attachmentgenie/attachmentgenie-roles.git
 [submodule "modules/stacks"]
-	path = modules/stacks
+	path = production/modules/stacks
 	url = git@github.com:attachmentgenie/attachmentgenie-stacks.git
 [submodule "modules/profiles"]
-	path = modules/profiles
+	path = production/modules/profiles
 	url = git@github.com:attachmentgenie/attachmentgenie-profiles.git
 [submodule "modules/stdlib"]
-	path = modules/stdlib
-	url = git@github.com:puppetlabs/puppetlabs-stdlib.git
+	path = production/modules/stdlib
+	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
 [submodule "modules/firewall"]
-	path = modules/firewall
+	path = production/modules/firewall
 	url = git@github.com:puppetlabs/puppetlabs-firewall.git
 [submodule "modules/java"]
-	path = modules/java
+	path = production/modules/java
 	url = https://github.com/puppetlabs/puppetlabs-java.git
 [submodule "modules/zookeeper"]
-	path = modules/zookeeper
+	path = production/modules/zookeeper
 	url = https://github.com/deric/puppet-zookeeper.git
 [submodule "modules/kafka"]
-	path = modules/kafka
-	url = https://github.com/danielvdende/puppet-kafka.git
+	path = production/modules/kafka
+	url = https://github.com/voxpupuli/puppet-kafka.git
+[submodule "production/modules/archive"]
+	path = production/modules/archive
+	url = https://github.com/voxpupuli/puppet-archive.git
+[submodule "production/modules/systemd"]
+	path = production/modules/systemd
+	url = https://github.com/camptocamp/puppet-systemd.git

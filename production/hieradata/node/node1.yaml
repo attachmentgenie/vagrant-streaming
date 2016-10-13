@@ -1,0 +1,9 @@
+---
+classes:
+ - roles::kafka
+profiles::kafka::zookeeper_config:
+  'broker.id': '0'
+  'inter.broker.protocol.version': '0.10.0.1'
+  'zookeeper.connect': 'node1.kafka.vagrant:2181'
+stacks::kafka::kafka: true
+stacks::kafka::zookeeper: true

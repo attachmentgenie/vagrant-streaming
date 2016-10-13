@@ -1,18 +1,17 @@
 ---
 - name: node1
-  hostname: node1.kafka.vagrant
-  box: puppetlabs/centos-6.6-64-puppet
-  box_version: '1.0.1'
-  box_check_update: false
+  hostname: node1
+  aliases: node1.kafka.vagrant
+  box: bento/centos-7.2
+  memory: 1024
   ip: 192.168.43.43
   ports:
     - guest: 22
       host: 4343
 - name: node2
-  hostname: node2.kafka.vagrant
-  box: puppetlabs/centos-6.6-64-puppet
-  box_version: '1.0.1'
-  box_check_update: false
+  hostname: node2
+  aliases: node2.kafka.vagrant
+  box: bento/centos-7.2
   memory: 1024
   ip: 192.168.43.44
   ports:
