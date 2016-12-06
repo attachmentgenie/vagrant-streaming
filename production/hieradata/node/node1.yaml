@@ -2,8 +2,9 @@
 classes:
  - roles::kafka
 profiles::kafka::zookeeper_config:
-  'broker.id': '0'
-  'inter.broker.protocol.version': '0.10.0.1'
+  'broker.id': '1'
+  'inter.broker.protocol.version': '0.10.1.0'
+  'log.dir': '/opt/kafka/data'
   'zookeeper.connect': 'node1.kafka.vagrant:2181'
 stacks::kafka::kafka: true
 stacks::kafka::zookeeper: true
