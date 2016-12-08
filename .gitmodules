@@ -28,3 +28,6 @@
 [submodule "production/modules/systemd"]
 	path = production/modules/systemd
 	url = https://github.com/camptocamp/puppet-systemd.git
+[submodule "production/modules/flink"]
+	path = production/modules/flink
+	url = git@github.com:attachmentgenie/attachmentgenie-flink.git
