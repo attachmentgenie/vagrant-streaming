@@ -1,5 +1,5 @@
 ---
 classes:
  - roles::streaming
-profiles::flink::install_method: archive
-stacks::streaming::flink: true
+profiles::streaming::flink: true
+profiles::streaming::flink::install_method: archive

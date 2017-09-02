@@ -1,9 +1,9 @@
 ---
 classes:
  - roles::streaming
-profiles::kafka::zookeeper_config:
+profiles::streaming::kafka: true
+profiles::streaming::kafka::zookeeper_config:
   'broker.id': '2'
   'inter.broker.protocol.version': '0.10.1.0'
   'log.dir': '/opt/kafka/data'
   'zookeeper.connect': 'node1.kafka.vagrant:2181'
-stacks::streaming::kafka: true

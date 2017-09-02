@@ -1,15 +1,15 @@
 ---
-profiles::firewall::ensure: stopped
-profiles::kafka::install_method: archive
-profiles::zookeeper::cfg_dir: '/etc/zookeeper/conf'
-profiles::zookeeper::cleanup_sh: '/usr/share/zookeeper/bin/zkCleanup.sh'
-profiles::zookeeper::initialize_datastore: true
-profiles::zookeeper::manage_service_file: false
-profiles::zookeeper::packages:
+profiles::bootstrap::firewall: true
+profiles::bootstrap::firewall::ensure: stopped
+profiles::runtime::java: true
+profiles::streaming::kafka::install_method: archive
+profiles::streaming::zookeeper::cfg_dir: '/etc/zookeeper/conf'
+profiles::streaming::zookeeper::cleanup_sh: '/usr/share/zookeeper/bin/zkCleanup.sh'
+profiles::streaming::zookeeper::initialize_datastore: true
+profiles::streaming::zookeeper::manage_service_file: false
+profiles::streaming::zookeeper::packages:
   - zookeeper
   - zookeeper-server
-profiles::zookeeper::repo: cloudera
-profiles::zookeeper::service_name: zookeeper-server
-profiles::zookeeper::zoo_dir: '/usr/lib/zookeeper'
-stacks::bootstrap::firewall: true
-stacks::runtime::java: true
+profiles::streaming::zookeeper::repo: cloudera
+profiles::streaming::zookeeper::service_name: zookeeper-server
+profiles::streaming::zookeeper::zoo_dir: '/usr/lib/zookeeper'
