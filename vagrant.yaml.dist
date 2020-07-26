@@ -1,19 +1,19 @@
 ---
 nodes:
-    - name: centos7
+    - name: node1
       hostname: node1.streaming.vagrant
-      box: bento/centos-7.3
+      box: bento/centos-7.8
       ip: 192.168.43.42
     - name: node2
       hostname: node2
       aliases: node2.streaming.vagrant
-      box: bento/centos-7.3
+      box: bento/centos-7.8
       memory: 1024
       ip: 192.168.43.44
     - name: node3
       hostname: node3
       aliases: node3.streaming.vagrant
-      box: bento/centos-7.3
+      box: bento/centos-7.8
       memory: 1024
       ip: 192.168.43.45
 virtualbox_group: '/Vagrant/streaming'

@@ -1,15 +1,19 @@
 ---
-profiles::bootstrap::firewall: true
-profiles::bootstrap::firewall::ensure: stopped
-profiles::runtime::java: true
-profiles::streaming::kafka::install_method: archive
+classes:
+ - roles::streaming
+profiles::streaming::kafka: true
+profiles::streaming::kafka::zookeeper_config:
+  'broker.id': '1'
+  'log.dir': '/opt/kafka/data'
+  'zookeeper.connect': 'node1.streaming.vagrant:2181'
+profiles::streaming::zookeeper: true
 profiles::streaming::zookeeper::cfg_dir: '/etc/zookeeper/conf'
 profiles::streaming::zookeeper::cleanup_sh: '/usr/share/zookeeper/bin/zkCleanup.sh'
 profiles::streaming::zookeeper::initialize_datastore: true
-profiles::streaming::zookeeper::manage_service_file: false
 profiles::streaming::zookeeper::packages:
-  - zookeeper
-  - zookeeper-server
+ - zookeeper
+ - zookeeper-server
 profiles::streaming::zookeeper::repo: cloudera
 profiles::streaming::zookeeper::service_name: zookeeper-server
 profiles::streaming::zookeeper::zoo_dir: '/usr/lib/zookeeper'
+...

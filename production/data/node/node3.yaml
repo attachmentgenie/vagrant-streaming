@@ -3,3 +3,4 @@ classes:
  - roles::streaming
 profiles::streaming::flink: true
 profiles::streaming::flink::install_method: archive
+...

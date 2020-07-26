@@ -1,0 +1,6 @@
+---
+profiles::bootstrap::firewall: true
+profiles::bootstrap::firewall::ensure: stopped
+profiles::runtime::java: true
+profiles::streaming::kafka::install_method: archive
+...
